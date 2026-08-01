@@ -1,0 +1,24 @@
+[package]
+name = "knowledge-lint"
+version = "0.1.0"
+edition = "2021"
+description = "Validates and maintains a Markdown + YAML-frontmatter knowledge base against a declarative _types.yml config"
+license = "MIT"
+repository = "https://github.com/casoon/knowledge-lint"
+authors = ["Jörn Seidel <info@casoon.de>"]
+keywords = ["knowledge-base", "markdown", "frontmatter", "validation", "cli"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "knowledge-lint"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+gray_matter = "0.2"
+walkdir = "2"
+anyhow = "1"
+chrono = "0.4"
+ureq = "3"
