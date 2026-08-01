@@ -71,7 +71,11 @@ directly into CI:
 - Every entry in `_attachments.yml` still resolves — local paths are
   checked for existence, `http(s)://` URLs with a HEAD request (a miss is
   a warning, since CI network conditions vary), network-share schemes are
-  skipped as unreachable from a CI runner by construction.
+  skipped as unreachable from a CI runner by construction. `referenced_by`
+  entries (which knowledge entries mention the attachment) are checked the
+  same way, and a missing `description` is a warning.
+- A summary line reports how many `knowledge_entry` files are marked
+  `public: true`, out of the total.
 
 See [SPEC.md](SPEC.md) for the full config schema and the explicit
 non-goals (frontmatter field *names* are fixed by design, not remappable).

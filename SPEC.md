@@ -107,11 +107,11 @@ Optional. If present, lives at the root of the knowledge directory.
 attachments:
   - id: <string>              # required, non-empty
     path: <string>             # required — see resolution rules below
-    description: <string>      # optional, free text
-    referenced_by: [<string>]  # optional, free text, not validated
+    description: <string>      # optional; empty is a warning, not an error
+    referenced_by: [<string>]  # optional, paths to knowledge entries — see below
 ```
 
-Path resolution:
+`path` resolution:
 
 - `http://` / `https://` — checked with a HEAD request; unreachable is a
   **warning**, not an error (network conditions in CI are not assumed to be
@@ -121,6 +121,11 @@ Path resolution:
 - Anything else — treated as a filesystem path, resolved relative to the
   knowledge directory if not absolute, and must exist on disk. Missing is
   an **error**.
+
+`referenced_by` entries name the knowledge entries that mention this
+attachment — always paths relative to the knowledge directory (the same
+base as `path`), checked for existence the same way as a local `path`. A
+missing target is an **error**.
 
 ## CLI
 
