@@ -19,7 +19,7 @@ same behavior in CI and locally.
 ## Install
 
 ```bash
-cargo install --git https://github.com/casoon/knowledge-lint --locked
+cargo install knowledge-lint
 ```
 
 Or build from source:
@@ -46,7 +46,7 @@ directly into CI:
 ```yaml
 # .github/workflows/lint.yml
 - uses: dtolnay/rust-toolchain@stable
-- run: cargo install --git https://github.com/casoon/knowledge-lint --locked
+- run: cargo install knowledge-lint
 - run: knowledge-lint lint knowledge
 ```
 

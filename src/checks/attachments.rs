@@ -83,7 +83,12 @@ fn check_source_path(id: &str, raw_path: &str, knowledge_dir: &Path, reporter: &
 
 /// `referenced_by` entries name the knowledge entries that mention this attachment —
 /// always paths inside the knowledge base, relative to the knowledge directory.
-fn check_referenced_by(id: &str, referenced_by: &[String], knowledge_dir: &Path, reporter: &mut Reporter) {
+fn check_referenced_by(
+    id: &str,
+    referenced_by: &[String],
+    knowledge_dir: &Path,
+    reporter: &mut Reporter,
+) {
     for rel in referenced_by {
         if !resolve(rel, knowledge_dir).exists() {
             reporter.error(format!(

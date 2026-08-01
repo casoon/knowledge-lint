@@ -9,7 +9,9 @@ use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 
 #[derive(Parser)]
-#[command(about = "Validates and maintains a Markdown + YAML-frontmatter knowledge base against a declarative _types.yml config")]
+#[command(
+    about = "Validates and maintains a Markdown + YAML-frontmatter knowledge base against a declarative _types.yml config"
+)]
 struct Cli {
     #[command(subcommand)]
     command: Command,
