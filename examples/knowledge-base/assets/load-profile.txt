@@ -1,0 +1,3 @@
+Sample attachment for the knowledge-lint examples.
+Stands in for a large original file (export, scan, PDF) that is referenced
+from _attachments.yml instead of being embedded in a knowledge entry.

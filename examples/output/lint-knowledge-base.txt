@@ -1,0 +1,10 @@
+Checking knowledge-base/secrets/example-credential.yaml
+Checking knowledge-base/processes/entry-review.md
+Checking knowledge-base/decisions/2026-01-vector-store.md
+Checking knowledge-base/glossary/rag.md
+Checking knowledge-base/glossary/chunking.md
+  WARNING: last_reviewed is 469 days old (> 365), but the entry is marked 'current'
+Checking knowledge-base/_attachments.yml
+
+3 of 4 knowledge entries are marked public.
+All checks passed (1 warning(s)).

@@ -1,0 +1,17 @@
+# A knowledge base with deliberate mistakes, to show what knowledge-lint
+# reports. It uses its own status vocabulary instead of the default.
+
+status_values: [draft, stable, deprecated]
+active_status: stable
+
+categories:
+  decisions:
+    kind: knowledge_entry
+    type: decision
+    review_interval_days: 365
+  glossary:
+    kind: knowledge_entry
+    type: glossary
+    review_interval_days: 365
+  secrets:
+    kind: sops_secret

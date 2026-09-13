@@ -1,0 +1,99 @@
+---
+import {
+  Badge,
+  Badges,
+  BuildOutput,
+  CodeBlock,
+  Facts,
+  Features,
+  Hero,
+  Install,
+  Quickstart,
+  Terminal,
+} from '@casoon/pages-theme/components';
+import Base from '@casoon/pages-theme/layouts/Base.astro';
+import broken from '../../../examples/output/lint-broken-knowledge-base.txt?raw';
+import passing from '../../../examples/output/lint-knowledge-base.txt?raw';
+
+const quickstart = `# Install the binary
+cargo install knowledge-lint
+
+# Check the knowledge/ directory (the default)
+knowledge-lint lint
+
+# Or any other path
+knowledge-lint lint docs/knowledge`;
+---
+
+<Base>
+  <Hero
+    title="Keep a Markdown knowledge base honest."
+    lead="knowledge-lint checks a folder of Markdown entries with YAML frontmatter against the categories, types and status values you declare in one _types.yml. Undeclared folders, broken links, unencrypted secrets and missing attachments fail the run instead of drifting silently."
+  >
+    <Install
+      commands={[
+        { label: 'crates.io', command: 'cargo install knowledge-lint' },
+        { label: 'git', command: 'cargo install --git https://github.com/casoon/knowledge-lint' },
+      ]}
+    />
+    <Badges>
+      <Badge>MIT</Badge>
+      <Badge>v0.1.0</Badge>
+      <Badge>Rust CLI</Badge>
+      <Badge>No runtime to install</Badge>
+    </Badges>
+    <Terminal slot="output" title="knowledge-lint lint broken-knowledge-base" dots ansi={broken} />
+  </Hero>
+
+  <Facts
+    items={[
+      { value: '3', label: 'category kinds: entries, SOPS secrets, assets' },
+      { value: '2', label: 'commands: lint and clean' },
+      { value: '10', label: 'plaintext key markers scanned in every entry' },
+      { value: '0 / 1', label: 'exit code for warnings only / any error' },
+    ]}
+  />
+
+  <Features
+    items={[
+      {
+        title: 'Categories are declared, not guessed',
+        body: 'Every folder in the knowledge directory needs an entry in _types.yml with its kind and expected type. A new category is a config change, and an undeclared folder is an error.',
+      },
+      {
+        title: 'Your own status vocabulary',
+        body: 'Status values and the one that means “still maintained” come from the config: current/deprecated by default, draft/stable/deprecated or aktuell/veraltet if you prefer.',
+      },
+      {
+        title: 'Reviews that come due',
+        body: 'With review_interval_days, an active entry whose last_reviewed date is too old gets a warning. Deprecated entries stay quiet.',
+      },
+      {
+        title: 'Secrets stay encrypted',
+        body: 'Files in a secrets category must be SOPS-encrypted. The check is structural and never decrypts. Entries are scanned for private-key headers and API-key prefixes.',
+      },
+      {
+        title: 'Links and attachments resolve',
+        body: 'related links, _attachments.yml paths and their referenced_by entries must exist. http(s) URLs get a HEAD request that only warns, so flaky CI networks do not fail the build.',
+      },
+    ]}
+  />
+
+  <BuildOutput
+    caption="A sample knowledge base with one entry past its review interval: warnings are reported, the run still exits 0. Captured from the release binary; the same output is in the showcase."
+    file="examples/output/lint-knowledge-base.txt"
+  >
+    <Terminal title="knowledge-lint lint knowledge-base" ansi={passing} />
+  </BuildOutput>
+
+  <Quickstart
+    lead="Install the binary, point it at the knowledge directory, and read the report. The documentation covers the config, every rule and CI usage."
+    steps={[
+      'Install knowledge-lint from crates.io with <code>cargo install</code>.',
+      'Declare your categories in <code>knowledge/_types.yml</code>.',
+      'Run <code>knowledge-lint lint</code>; it exits 1 on any error.',
+    ]}
+  >
+    <CodeBlock code={quickstart} lang="shell" title="terminal" label="Shell" />
+  </Quickstart>
+</Base>

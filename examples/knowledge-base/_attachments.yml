@@ -1,0 +1,14 @@
+# Large original files are referenced here instead of being embedded in an
+# entry. Paths are relative to this directory.
+
+attachments:
+  - id: load-profile
+    path: "./assets/load-profile.txt"
+    description: "Load profile from the architecture review, kept as the original file"
+    referenced_by:
+      - decisions/2026-01-vector-store.md
+  - id: review-recording
+    path: "nas://archive/reviews/2026-01-15.mp4"
+    description: "Recording of the architecture review on the office NAS (not checked from CI)"
+    referenced_by:
+      - decisions/2026-01-vector-store.md

@@ -1,0 +1,21 @@
+Checking broken-knowledge-base/secrets/api-token.yaml
+  ERROR: file in a sops_secret category has no `sops:` metadata field — not SOPS-encrypted?
+Checking broken-knowledge-base/decisions/2024-03-hosting.md
+  WARNING: last_reviewed is 927 days old (> 365), but the entry is marked 'stable'
+  ERROR: related link '../glossary/cdn.md' points to a file that doesn't exist
+Checking broken-knowledge-base/decisions/2026-02-backups.md
+  ERROR: status 'current' is not one of the allowed values (draft, stable, deprecated)
+  ERROR: type 'process' does not match category 'decisions' (expected: 'decision')
+Checking broken-knowledge-base/glossary/embedding.md
+  WARNING: possible API key with prefix 'sk-' found — check whether this is a real secret
+  ERROR: source is missing
+  ERROR: last_reviewed '12.01.2026' is not a valid date (YYYY-MM-DD)
+Checking broken-knowledge-base/meetings/
+  ERROR: category 'meetings' is not declared in _types.yml
+Checking broken-knowledge-base/_attachments.yml
+  WARNING: attachment 'contract-scan' has no description
+  ERROR: attachment 'contract-scan': path './assets/contract-2026.pdf' does not exist
+  ERROR: attachment 'contract-scan': referenced_by entry 'decisions/2026-03-hosting-contract.md' points to a file that doesn't exist
+
+0 of 3 knowledge entries are marked public.
+9 error(s), 3 warning(s) found.

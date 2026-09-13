@@ -1,0 +1,79 @@
+---
+title: CLI
+description: The two commands, their arguments and exit codes.
+order: 3
+---
+
+```text
+knowledge-lint lint [OPTIONS] [KNOWLEDGE_DIR]
+knowledge-lint clean [KNOWLEDGE_DIR]
+```
+
+`KNOWLEDGE_DIR` defaults to `knowledge`, relative to the current directory.
+
+## `lint`
+
+```text
+Check frontmatter, status values, related-links, staleness, secret encryption, attachments
+
+Usage: knowledge-lint lint [OPTIONS] [KNOWLEDGE_DIR]
+
+Arguments:
+  [KNOWLEDGE_DIR]  Path to the knowledge directory [default: knowledge]
+
+Options:
+      --max-file-size <MAX_FILE_SIZE>  Files above this size (bytes) get a warning suggesting _attachments.yml instead [default: 500000]
+  -h, --help                           Print help
+```
+
+Prints a `Checking <path>` line per file or folder, the messages for it indented below, and a
+summary at the end. Every message is listed under [Rules](../rules/).
+
+| Exit code | Meaning |
+| --- | --- |
+| `0` | No errors. Warnings may have been printed. |
+| `1` | At least one error, or the run could not start (for example, `_types.yml` is missing). |
+
+```text
+Error: Could not read nope/_types.yml
+
+Caused by:
+    No such file or directory (os error 2)
+```
+
+## `clean`
+
+```text
+Remove example content from every category, keep structure and _template.md
+
+Usage: knowledge-lint clean [KNOWLEDGE_DIR]
+
+Arguments:
+  [KNOWLEDGE_DIR]  Path to the knowledge directory [default: knowledge]
+
+Options:
+  -h, --help  Print help
+```
+
+For every category declared in `_types.yml`, `clean`:
+
+- creates the category folder if it is missing,
+- deletes every file directly in the folder except `_template.md` (in `knowledge_entry`
+  categories) and `.gitkeep`; subfolders and their files are left alone,
+- writes an empty `.gitkeep` so the folder survives in git.
+
+If `_attachments.yml` exists, it is reset to `attachments: []`. Folders that are not declared in
+`_types.yml` are not touched.
+
+<Callout type="caution">
+  `clean` deletes without asking and cannot be undone. Use it once, right after creating a
+  repository from a template with demo content, never on a knowledge base in use.
+</Callout>
+
+## Packages and specification
+
+- Releases: [crates.io/crates/knowledge-lint](https://crates.io/crates/knowledge-lint). The
+  crate ships a binary only, so there is no API documentation on docs.rs.
+- Normative schema and non-goals:
+  [SPEC.md](https://github.com/casoon/knowledge-lint/blob/master/SPEC.md).
+- Changes: [Changelog](../../../changelog/).
