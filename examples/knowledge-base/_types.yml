@@ -1,0 +1,23 @@
+# Categories of this sample knowledge base. A new category is a new entry
+# here — no code change in knowledge-lint.
+
+status_values: [current, deprecated]
+active_status: current
+
+categories:
+  decisions:
+    kind: knowledge_entry
+    type: decision
+    review_interval_days: 365
+  processes:
+    kind: knowledge_entry
+    type: process
+    review_interval_days: 180
+  glossary:
+    kind: knowledge_entry
+    type: glossary
+    review_interval_days: 365
+  secrets:
+    kind: sops_secret
+  assets:
+    kind: assets

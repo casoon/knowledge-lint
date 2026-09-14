@@ -1,0 +1,7 @@
+Cleaned: knowledge-base/secrets/
+Cleaned: knowledge-base/assets/
+Cleaned: knowledge-base/decisions/
+Cleaned: knowledge-base/glossary/
+Cleaned: knowledge-base/processes/
+Reset: knowledge-base/_attachments.yml
+Done. _template.md remains as the scaffold for new entries.

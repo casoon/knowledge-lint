@@ -8,6 +8,7 @@ repository = "https://github.com/casoon/knowledge-lint"
 authors = ["Jörn Seidel <info@casoon.de>"]
 keywords = ["knowledge-base", "markdown", "frontmatter", "validation", "cli"]
 categories = ["command-line-utilities"]
+exclude = ["/site", "/docs", "/examples"]
 
 [[bin]]
 name = "knowledge-lint"

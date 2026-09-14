@@ -1,0 +1,6 @@
+attachments:
+  - id: contract-scan
+    path: "./assets/contract-2026.pdf"
+    description: ""
+    referenced_by:
+      - decisions/2026-03-hosting-contract.md

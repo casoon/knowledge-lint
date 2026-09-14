@@ -1,5 +1,7 @@
 # knowledge-lint
 
+**Website and documentation:** [casoon.github.io/knowledge-lint](https://casoon.github.io/knowledge-lint/)
+
 A single Rust binary that validates and maintains a Markdown + YAML-frontmatter
 knowledge base — the kind of `knowledge/` directory tree used by
 [ai-knowledge-template](https://github.com/casoon/ai-knowledge-template), but
