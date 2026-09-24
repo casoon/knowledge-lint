@@ -5,6 +5,9 @@ edition = "2021"
 description = "Validates and maintains a Markdown + YAML-frontmatter knowledge base against a declarative _types.yml config"
 license = "MIT"
 repository = "https://github.com/casoon/knowledge-lint"
+# docs.rs builds library targets only; this is a binary crate, so its build
+# there fails with "no library targets found" and the link would be dead.
+documentation = "https://casoon.github.io/knowledge-lint/"
 authors = ["Jörn Seidel <info@casoon.de>"]
 keywords = ["knowledge-base", "markdown", "frontmatter", "validation", "cli"]
 categories = ["command-line-utilities"]
