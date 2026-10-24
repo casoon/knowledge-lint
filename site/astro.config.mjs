@@ -13,7 +13,6 @@ export default defineConfig({
         'Validates a Markdown + YAML-frontmatter knowledge base against a declarative _types.yml config.',
       tagline: 'Validate Markdown knowledge bases',
       repo: 'casoon/knowledge-lint',
-      version: '0.1.0',
       license: 'MIT',
       branch: 'master',
       packages: [{ label: 'crates.io', href: 'https://crates.io/crates/knowledge-lint' }],
