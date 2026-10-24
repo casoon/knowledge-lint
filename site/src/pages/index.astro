@@ -12,6 +12,7 @@ import {
   Terminal,
 } from '@casoon/pages-theme/components';
 import Base from '@casoon/pages-theme/layouts/Base.astro';
+import config from 'virtual:casoon-pages/config';
 import broken from '../../../examples/output/lint-broken-knowledge-base.txt?raw';
 import passing from '../../../examples/output/lint-knowledge-base.txt?raw';
 
@@ -38,7 +39,7 @@ knowledge-lint lint docs/knowledge`;
     />
     <Badges>
       <Badge>MIT</Badge>
-      <Badge>v0.1.0</Badge>
+      <Badge>v{config.version}</Badge>
       <Badge>Rust CLI</Badge>
       <Badge>No runtime to install</Badge>
     </Badges>
