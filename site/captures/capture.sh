@@ -13,7 +13,7 @@
 # before re-capturing then.
 #
 # Rebuild the scene after a capture:
-#   cd site/captures && npx -y -p @casoon/castwright@0.4.0 -p shiki castwright build lint.terminal.yaml --format svg -o .
+#   cd site/captures && npx -y -p @casoon/castwright@0.5.0 -p shiki castwright build lint.terminal.yaml --format svg -o .
 set -euo pipefail
 
 repo="$(cd "$(dirname "$0")/../.." && pwd)"
