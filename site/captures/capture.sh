@@ -25,4 +25,4 @@ for state in broken fixed; do
   (cd "$out/fixture/$state" && "$bin" lint) > "$out/lint-$state.txt" || status=$?
   echo "$status" > "$out/exit-$state.txt"
 done
-(cd "$out/fixture/fixed" && grep -E '^(status|related):' knowledge/glossary/embedding.md) > "$out/fix.txt"
+(cd "$out/fixture/fixed" && grep -E 'status|related' knowledge/glossary/embedding.md) > "$out/fix.txt"

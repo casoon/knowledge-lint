@@ -23,8 +23,8 @@ knowledge-lint lint   # checks ./knowledge`;
 
 <Base>
   <Hero
-    title="Keep a Markdown knowledge base honest."
-    lead="A knowledge base in plain Markdown drifts quietly: a folder nobody declared, a link to an entry that was deleted, a status word nobody agreed on, an API key pasted into a note. knowledge-lint checks the whole folder against the rules you write down in one _types.yml, and fails the run when something is off – on your machine or in CI."
+    title="Keep your knowledge base honest."
+    lead="Markdown notes drift quietly: a folder nobody declared, a link to a deleted entry, an API key pasted into a note. knowledge-lint checks the whole knowledge base against the rules in your _types.yml and fails the run when something is off – locally or in CI."
   >
     <Install
       commands={[
@@ -42,8 +42,8 @@ knowledge-lint lint   # checks ./knowledge`;
       slot="output"
       class="terminal-demo"
       src={lintSvg}
-      width="561.6"
-      height="296"
+      width="511.2"
+      height="278"
       alt="Terminal: knowledge-lint lint checks knowledge/glossary/rag.md and embedding.md and reports two errors for embedding.md: status 'stable' is not one of the allowed values (current, deprecated), and related link './vectors.md' points to a file that doesn't exist. The run ends with '2 error(s), 0 warning(s) found.' and exit code 1. After the entry is changed to status: current with a related link to ./rag.md, the same command prints 'All checks passed (0 warning(s)).' and exits with 0."
     />
   </Hero>
@@ -58,10 +58,6 @@ knowledge-lint lint   # checks ./knowledge`;
       {
         title: 'Knowledge bases for AI',
         body: 'It comes from ai-knowledge-template, a knowledge base for chats, RAG and agents. Entries that are overdue for review or carry the wrong type are flagged before anyone relies on them.',
-      },
-      {
-        title: 'Your rules, written down once',
-        body: 'Categories, entry types and status words live in _types.yml. A new category is a few lines of config, and a folder that is not declared fails the run.',
       },
       {
         title: 'Secrets stay encrypted',
@@ -83,10 +79,11 @@ knowledge-lint lint   # checks ./knowledge`;
     <h2 id="how-heading">How it works</h2>
     <div class="text">
       <p>
-        You run <code>knowledge-lint lint</code> in your repository. It reads
-        <code>_types.yml</code>, goes through every folder of the knowledge directory and checks
-        it by the kind you declared: Markdown entries, encrypted secrets or plain assets. Last, it
-        checks the attachment list.
+        You declare your categories, entry types and status words in <code>_types.yml</code>.
+        {' '}<code>knowledge-lint lint</code> reads it, goes through every folder of the knowledge
+        directory and checks it by the kind you declared: Markdown entries, encrypted secrets or
+        plain assets. A folder that is not declared is an error. Last, it checks the attachment
+        list.
       </p>
       <p>
         Each problem is printed under the file it belongs to. Errors fail the run with exit code 1,
@@ -94,7 +91,7 @@ knowledge-lint lint   # checks ./knowledge`;
         failing it.
       </p>
     </div>
-    <Diagram name="how-it-works" format="svg" narrow={{ width: 560, height: 780 }} />
+    <Diagram name="how-it-works" format="svg" narrow={{ width: 340, height: 630 }} />
     <div class="links">
       <Button href={url('docs/guides/configuration/')} variant="secondary">Configure _types.yml</Button>
       <Button href={url('docs/reference/rules/')} variant="secondary">Every rule</Button>

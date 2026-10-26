@@ -4,27 +4,87 @@
   "title": "How knowledge-lint works",
   "description": "knowledge-lint lint reads _types.yml from the knowledge directory, then goes through every folder in it: a folder that is not declared as a category is an error, a declared one is checked by its kind (Markdown entries, SOPS secrets or assets). After the folders it checks the paths in _attachments.yml. Any error ends the run with exit code 1; warnings alone end it with exit code 0.",
   "source": "src/lint.rs, src/checks/",
-  "width": 1220,
-  "height": 300,
+  "width": 1100,
+  "height": 240,
   "flow": {
     "nodes": [
-      { "id": "run", "label": "knowledge-lint lint", "sublabel": "knowledge/ by default", "kind": "start" },
-      { "id": "types", "label": "_types.yml", "sublabel": "categories, status values", "kind": "io" },
-      { "id": "folders", "label": "Every folder", "sublabel": "checked by its kind" },
-      { "id": "attachments", "label": "_attachments.yml", "sublabel": "paths and references", "kind": "io" },
-      { "id": "errors", "label": "Any error?", "kind": "decision" },
-      { "id": "fail", "label": "Run fails", "sublabel": "exit code 1", "kind": "end" },
-      { "id": "pass", "label": "All checks passed", "sublabel": "exit code 0", "kind": "end" }
+      {
+        "id": "run",
+        "label": "knowledge-lint lint",
+        "sublabel": "in your repository",
+        "kind": "start"
+      },
+      {
+        "id": "types",
+        "label": "_types.yml",
+        "sublabel": "your rules",
+        "kind": "io"
+      },
+      {
+        "id": "folders",
+        "label": "Every folder",
+        "sublabel": "checked by its kind"
+      },
+      {
+        "id": "attachments",
+        "label": "_attachments.yml",
+        "sublabel": "paths, references",
+        "kind": "io"
+      },
+      {
+        "id": "errors",
+        "label": "Any error?",
+        "kind": "decision"
+      },
+      {
+        "id": "fail",
+        "label": "Run fails",
+        "sublabel": "exit code 1",
+        "kind": "end"
+      },
+      {
+        "id": "pass",
+        "label": "All checks passed",
+        "sublabel": "exit code 0",
+        "kind": "end"
+      }
     ],
     "edges": [
-      { "from": "run", "to": "types", "label": "reads" },
-      { "from": "types", "to": "folders" },
-      { "from": "folders", "to": "attachments" },
-      { "from": "attachments", "to": "errors" },
-      { "from": "errors", "to": "fail", "label": "yes" },
-      { "from": "errors", "to": "pass", "label": "no" }
+      {
+        "from": "run",
+        "to": "types"
+      },
+      {
+        "from": "types",
+        "to": "folders"
+      },
+      {
+        "from": "folders",
+        "to": "attachments"
+      },
+      {
+        "from": "attachments",
+        "to": "errors"
+      },
+      {
+        "from": "errors",
+        "to": "fail",
+        "label": "yes"
+      },
+      {
+        "from": "errors",
+        "to": "pass",
+        "label": "no"
+      }
     ],
-    "mainPath": ["run", "types", "folders", "attachments", "errors", "pass"],
+    "mainPath": [
+      "run",
+      "types",
+      "folders",
+      "attachments",
+      "errors",
+      "pass"
+    ],
     "orientation": "landscape"
   }
 }

@@ -5,7 +5,7 @@
   "description": "Every folder in the knowledge directory needs a category in _types.yml; an undeclared folder is an error. knowledge_entry categories hold Markdown entries, checked for the required fields title, source and created, an allowed status, the category's type, a valid last_reviewed date and its review interval, related links, plaintext keys (4 private-key headers as errors, 6 API-key prefixes as warnings) and a file size above 500 KB (a warning). sops_secret categories need a top-level sops: key in every file; nothing is decrypted. assets categories are not checked; their files are referenced from _attachments.yml, which is checked for existing paths, reachable URLs (a warning) and existing referenced_by entries.",
   "source": "src/lint.rs, src/checks/knowledge_entry.rs, src/checks/secret_scan.rs, src/checks/secrets.rs, src/checks/attachments.rs",
   "width": 1100,
-  "height": 900,
+  "height": 780,
   "tree": {
     "nodes": [
       { "id": "root", "label": "knowledge/", "sublabel": "folders declared in _types.yml" },

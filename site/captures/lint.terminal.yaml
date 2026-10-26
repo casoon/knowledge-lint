@@ -3,8 +3,8 @@
 version: 1
 terminal:
   title: knowledge-lint
-  cols: 64
-  rows: 14
+  cols: 58
+  rows: 13
   theme: catppuccin-mocha
 steps:
   - run: knowledge-lint lint
@@ -16,7 +16,7 @@ steps:
     lang: text
   - wait: 3000
   - clear: true
-  - run: grep -E '^(status|related):' knowledge/glossary/embedding.md
+  - run: grep -E 'status|related' knowledge/glossary/embedding.md
   - show: fix.txt
     lang: text
   - run: knowledge-lint lint
