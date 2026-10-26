@@ -2,34 +2,29 @@
 import {
   Badge,
   Badges,
-  BuildOutput,
+  Button,
   CodeBlock,
   Facts,
   Features,
   Hero,
   Install,
   Quickstart,
-  Terminal,
 } from '@casoon/pages-theme/components';
 import Base from '@casoon/pages-theme/layouts/Base.astro';
 import config from 'virtual:casoon-pages/config';
-import broken from '../../../examples/output/lint-broken-knowledge-base.txt?raw';
-import passing from '../../../examples/output/lint-knowledge-base.txt?raw';
+import { url } from '@casoon/pages-theme/url';
+// Animated SVG built with castwright from site/captures/lint.terminal.yaml (real runs, see capture.sh).
+import lintSvg from '../../captures/lint.svg?url';
+import Diagram from '../components/Diagram.astro';
 
-const quickstart = `# Install the binary
-cargo install knowledge-lint
-
-# Check the knowledge/ directory (the default)
-knowledge-lint lint
-
-# Or any other path
-knowledge-lint lint docs/knowledge`;
+const usage = `cargo install knowledge-lint
+knowledge-lint lint   # checks ./knowledge`;
 ---
 
 <Base>
   <Hero
-    title="Keep a Markdown knowledge base honest."
-    lead="knowledge-lint checks a folder of Markdown entries with YAML frontmatter against the categories, types and status values you declare in one _types.yml. Undeclared folders, broken links, unencrypted secrets and missing attachments fail the run instead of drifting silently."
+    title="Keep your knowledge base honest."
+    lead="Markdown notes drift quietly: a folder nobody declared, a link to a deleted entry, an API key pasted into a note. knowledge-lint checks the whole knowledge base against the rules in your _types.yml and fails the run when something is off – locally or in CI."
   >
     <Install
       commands={[
@@ -38,13 +33,38 @@ knowledge-lint lint docs/knowledge`;
       ]}
     />
     <Badges>
-      <Badge>MIT</Badge>
+      <Badge>Free · MIT</Badge>
       <Badge>v{config.version}</Badge>
-      <Badge>Rust CLI</Badge>
-      <Badge>No runtime to install</Badge>
+      <Badge tone="accent">single binary</Badge>
+      <Badge>local and CI</Badge>
     </Badges>
-    <Terminal slot="output" title="knowledge-lint lint broken-knowledge-base" dots ansi={broken} />
+    <img
+      slot="output"
+      class="terminal-demo"
+      src={lintSvg}
+      width="511.2"
+      height="278"
+      alt="Terminal: knowledge-lint lint checks knowledge/glossary/rag.md and embedding.md and reports two errors for embedding.md: status 'stable' is not one of the allowed values (current, deprecated), and related link './vectors.md' points to a file that doesn't exist. The run ends with '2 error(s), 0 warning(s) found.' and exit code 1. After the entry is changed to status: current with a related link to ./rag.md, the same command prints 'All checks passed (0 warning(s)).' and exits with 0."
+    />
   </Hero>
+
+  <Features
+    heading="Who it is for"
+    items={[
+      {
+        title: 'Teams that keep notes in Git',
+        body: 'Decisions, processes and glossaries as Markdown files, reviewed in pull requests. knowledge-lint is the check that runs next to the review.',
+      },
+      {
+        title: 'Knowledge bases for AI',
+        body: 'It comes from ai-knowledge-template, a knowledge base for chats, RAG and agents. Entries that are overdue for review or carry the wrong type are flagged before anyone relies on them.',
+      },
+      {
+        title: 'Secrets stay encrypted',
+        body: 'Secret files must be SOPS-encrypted, and entries are scanned for private keys and API tokens. Nothing is ever decrypted.',
+      },
+    ]}
+  />
 
   <Facts
     items={[
@@ -55,46 +75,76 @@ knowledge-lint lint docs/knowledge`;
     ]}
   />
 
-  <Features
-    items={[
-      {
-        title: 'Categories are declared, not guessed',
-        body: 'Every folder in the knowledge directory needs an entry in _types.yml with its kind and expected type. A new category is a config change, and an undeclared folder is an error.',
-      },
-      {
-        title: 'Your own status vocabulary',
-        body: 'Status values and the one that means “still maintained” come from the config: current/deprecated by default, draft/stable/deprecated or aktuell/veraltet if you prefer.',
-      },
-      {
-        title: 'Reviews that come due',
-        body: 'With review_interval_days, an active entry whose last_reviewed date is too old gets a warning. Deprecated entries stay quiet.',
-      },
-      {
-        title: 'Secrets stay encrypted',
-        body: 'Files in a secrets category must be SOPS-encrypted. The check is structural and never decrypts. Entries are scanned for private-key headers and API-key prefixes.',
-      },
-      {
-        title: 'Links and attachments resolve',
-        body: 'related links, _attachments.yml paths and their referenced_by entries must exist. http(s) URLs get a HEAD request that only warns, so flaky CI networks do not fail the build.',
-      },
-    ]}
-  />
-
-  <BuildOutput
-    caption="A sample knowledge base with one entry past its review interval: warnings are reported, the run still exits 0. Captured from the release binary; the same output is in the showcase."
-    file="examples/output/lint-knowledge-base.txt"
-  >
-    <Terminal title="knowledge-lint lint knowledge-base" ansi={passing} />
-  </BuildOutput>
+  <section class="how" aria-labelledby="how-heading">
+    <h2 id="how-heading">How it works</h2>
+    <div class="text">
+      <p>
+        You declare your categories, entry types and status words in <code>_types.yml</code>.
+        {' '}<code>knowledge-lint lint</code> reads it, goes through every folder of the knowledge
+        directory and checks it by the kind you declared: Markdown entries, encrypted secrets or
+        plain assets. A folder that is not declared is an error. Last, it checks the attachment
+        list.
+      </p>
+      <p>
+        Each problem is printed under the file it belongs to. Errors fail the run with exit code 1,
+        so a CI job stops; warnings, such as an entry that is due for review, are reported without
+        failing it.
+      </p>
+    </div>
+    <Diagram name="how-it-works" format="svg" narrow={{ width: 340, height: 630 }} />
+    <div class="links">
+      <Button href={url('docs/guides/configuration/')} variant="secondary">Configure _types.yml</Button>
+      <Button href={url('docs/reference/rules/')} variant="secondary">Every rule</Button>
+      <Button href={url('docs/guides/ci/')} variant="quiet">Run it in CI →</Button>
+    </div>
+  </section>
 
   <Quickstart
-    lead="Install the binary, point it at the knowledge directory, and read the report. The documentation covers the config, every rule and CI usage."
+    lead="Install the binary, declare your categories, run it."
     steps={[
       'Install knowledge-lint from crates.io with <code>cargo install</code>.',
       'Declare your categories in <code>knowledge/_types.yml</code>.',
-      'Run <code>knowledge-lint lint</code>; it exits 1 on any error.',
+      'Run <code>knowledge-lint lint</code> and fix what it reports.',
     ]}
   >
-    <CodeBlock code={quickstart} lang="shell" title="terminal" label="Shell" />
+    <CodeBlock code={usage} lang="sh" label="Two commands" />
   </Quickstart>
 </Base>
+
+<style>
+  /* Never scale the SVG beyond a readable terminal size. */
+  .terminal-demo {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin: 0 auto;
+  }
+  .how {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+  h2 {
+    margin: 0 0 14px;
+    color: var(--heading);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .text {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: 0 48px;
+  }
+  .text p {
+    margin: 0 0 16px;
+    font-size: 15.5px;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+</style>

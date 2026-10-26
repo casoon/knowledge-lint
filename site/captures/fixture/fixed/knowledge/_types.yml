@@ -1,0 +1,8 @@
+status_values: [current, deprecated]
+active_status: current
+
+categories:
+  glossary:
+    kind: knowledge_entry
+    type: glossary
+    review_interval_days: 365

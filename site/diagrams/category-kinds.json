@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "type": "tree",
+  "title": "What knowledge-lint checks per category kind",
+  "description": "Every folder in the knowledge directory needs a category in _types.yml; an undeclared folder is an error. knowledge_entry categories hold Markdown entries, checked for the required fields title, source and created, an allowed status, the category's type, a valid last_reviewed date and its review interval, related links, plaintext keys (4 private-key headers as errors, 6 API-key prefixes as warnings) and a file size above 500 KB (a warning). sops_secret categories need a top-level sops: key in every file; nothing is decrypted. assets categories are not checked; their files are referenced from _attachments.yml, which is checked for existing paths, reachable URLs (a warning) and existing referenced_by entries.",
+  "source": "src/lint.rs, src/checks/knowledge_entry.rs, src/checks/secret_scan.rs, src/checks/secrets.rs, src/checks/attachments.rs",
+  "width": 1100,
+  "height": 780,
+  "tree": {
+    "nodes": [
+      { "id": "root", "label": "knowledge/", "sublabel": "folders declared in _types.yml" },
+      { "id": "undeclared", "label": "Undeclared folder", "sublabel": "error", "parent": "root", "role": "critical" },
+      { "id": "entry", "label": "knowledge_entry", "sublabel": "Markdown entries", "parent": "root" },
+      { "id": "fields", "label": "Required fields", "sublabel": "title, source, created", "parent": "entry" },
+      { "id": "status", "label": "status", "sublabel": "one of status_values", "parent": "entry" },
+      { "id": "type", "label": "type", "sublabel": "matches the category", "parent": "entry" },
+      { "id": "reviewed", "label": "last_reviewed", "sublabel": "valid date, review interval", "parent": "entry" },
+      { "id": "related", "label": "related", "sublabel": "linked files exist", "parent": "entry" },
+      { "id": "keys", "label": "Plaintext keys", "sublabel": "4 headers, 6 prefixes", "parent": "entry" },
+      { "id": "size", "label": "File size", "sublabel": "warning above 500 KB", "parent": "entry" },
+      { "id": "secret", "label": "sops_secret", "sublabel": "SOPS files", "parent": "root" },
+      { "id": "sops", "label": "sops: key", "sublabel": "structural, never decrypted", "parent": "secret" },
+      { "id": "assets", "label": "assets", "sublabel": "plain files", "parent": "root" },
+      { "id": "nocheck", "label": "No content checks", "sublabel": "listed in _attachments.yml", "parent": "assets" },
+      { "id": "attachments", "label": "_attachments.yml", "sublabel": "attachment list", "parent": "root" },
+      { "id": "paths", "label": "path", "sublabel": "file exists, URL answers", "parent": "attachments" },
+      { "id": "refs", "label": "referenced_by", "sublabel": "entries exist", "parent": "attachments" }
+    ],
+    "orientation": "landscape"
+  }
+}
