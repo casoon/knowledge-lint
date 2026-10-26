@@ -1,0 +1,29 @@
+# Plays the captured runs in lint-*.txt, exit-*.txt and fix.txt (see capture.sh): the same
+# knowledge base linted twice, before and after fixing one glossary entry.
+version: 1
+terminal:
+  title: knowledge-lint
+  cols: 64
+  rows: 14
+  theme: catppuccin-mocha
+steps:
+  - run: knowledge-lint lint
+  - wait: 500
+  - show: lint-broken.txt
+    lang: text
+  - run: echo $?
+  - show: exit-broken.txt
+    lang: text
+  - wait: 3000
+  - clear: true
+  - run: grep -E '^(status|related):' knowledge/glossary/embedding.md
+  - show: fix.txt
+    lang: text
+  - run: knowledge-lint lint
+  - wait: 500
+  - show: lint-fixed.txt
+    lang: text
+  - run: echo $?
+  - show: exit-fixed.txt
+    lang: text
+  - wait: 4000

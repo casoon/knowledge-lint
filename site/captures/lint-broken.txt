@@ -1,0 +1,7 @@
+Checking knowledge/glossary/rag.md
+Checking knowledge/glossary/embedding.md
+  ERROR: status 'stable' is not one of the allowed values (current, deprecated)
+  ERROR: related link './vectors.md' points to a file that doesn't exist
+
+0 of 2 knowledge entries are marked public.
+2 error(s), 0 warning(s) found.
