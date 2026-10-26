@@ -19,6 +19,12 @@ but works with any knowledge directory that follows the same conventions.
 - `related` links and `_attachments.yml` references point to files that exist.
 - Secrets are SOPS-encrypted, and entries contain no plaintext keys.
 
+What is checked depends on the kind a category has in `_types.yml`:
+
+<Diagram name="category-kinds" />
+
+Each check and its exact message are listed under [Rules](reference/rules/).
+
 ## Where it stops
 
 knowledge-lint checks structure and metadata, not prose. It does not decrypt secrets, does not

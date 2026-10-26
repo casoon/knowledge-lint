@@ -16,6 +16,7 @@ export default defineConfig({
       license: 'MIT',
       branch: 'master',
       packages: [{ label: 'crates.io', href: 'https://crates.io/crates/knowledge-lint' }],
+      mdxComponents: './src/mdx-components.ts',
       docsGroups: {
         'getting-started': 'Getting started',
         guides: 'Guides',
