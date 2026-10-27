@@ -10,6 +10,8 @@ All notable changes to this project are documented in this file. The format foll
 - **Website:** the start page shows a recorded `knowledge-lint lint` run that fails on a broken
   glossary entry and passes after the fix, and how a run works as a diagram. What is checked per
   category kind is a diagram in the [docs overview](https://casoon.github.io/knowledge-lint/docs/).
+- **Website:** the footer follows the page language instead of always showing German text, and
+  the start page now carries a release teaser and an FAQ (theme 0.11.1).
 
 ## [0.1.0] - 2026-08-01
 

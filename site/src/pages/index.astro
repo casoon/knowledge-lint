@@ -1,17 +1,21 @@
 ---
+import { readFile } from 'node:fs/promises';
 import {
   Badge,
   Badges,
   Button,
   CodeBlock,
   Facts,
+  Faq,
   Features,
   Hero,
   Install,
   Quickstart,
+  ReleaseHighlights,
 } from '@casoon/pages-theme/components';
 import Base from '@casoon/pages-theme/layouts/Base.astro';
 import config from 'virtual:casoon-pages/config';
+import { parseChangelog } from '@casoon/pages-theme/lib/changelog';
 import { url } from '@casoon/pages-theme/url';
 // Animated SVG built with castwright from site/captures/lint.terminal.yaml (real runs, see capture.sh).
 import lintSvg from '../../captures/lint.svg?url';
@@ -19,6 +23,13 @@ import Diagram from '../components/Diagram.astro';
 
 const usage = `cargo install knowledge-lint
 knowledge-lint lint   # checks ./knowledge`;
+
+// Skip "Unreleased": it has no version to show as "New in v…" yet.
+const latestRelease = config.changelog
+  ? parseChangelog(await readFile(config.changelog, 'utf8')).find(
+      (r) => r.version.toLowerCase() !== 'unreleased'
+    )
+  : undefined;
 ---
 
 <Base>
@@ -109,6 +120,33 @@ knowledge-lint lint   # checks ./knowledge`;
   >
     <CodeBlock code={usage} lang="sh" label="Two commands" />
   </Quickstart>
+
+  {latestRelease && <ReleaseHighlights release={latestRelease} />}
+
+  <Faq
+    items={[
+      {
+        q: 'What exactly does knowledge-lint check?',
+        a: 'Declared categories, required frontmatter fields, allowed status values, overdue last_reviewed dates, broken related links, structurally-valid SOPS secrets, a best-effort scan for plaintext API keys, and every entry in _attachments.yml.',
+      },
+      {
+        q: 'Do I have to use ai-knowledge-template to use this?',
+        a: 'No. It was extracted from that project, but every category, type, and status value is declared in your own _types.yml — there is no dependency on it.',
+      },
+      {
+        q: 'Does it ever decrypt my SOPS secrets?',
+        a: 'No. The sops_secret check is structural only: it confirms the file parses as YAML with a top-level sops: key, and never needs access to a private key.',
+      },
+      {
+        q: 'Can I rename the frontmatter fields, like title or status?',
+        a: 'No, the frontmatter key names are fixed by the spec. Category names, type values, and the status vocabulary itself are configurable in _types.yml.',
+      },
+      {
+        q: 'How does it behave in CI?',
+        a: 'knowledge-lint lint exits 1 on any error and 0 when only warnings remain, so it composes directly into a CI job: install the binary with cargo install and run it against your knowledge directory.',
+      },
+    ]}
+  />
 </Base>
 
 <style>
