@@ -32,4 +32,4 @@ steps:
         0 of 3 knowledge entries are marked public.
         9 error(s), 3 warning(s) found.
     delay: 3
-  - wait: 2500
+  - wait: 9000
