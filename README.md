@@ -10,6 +10,10 @@ declared in one config file, not hardcoded.
 
 Full schema reference: [SPEC.md](SPEC.md).
 
+<p align="center">
+  <img src=".github/readme/knowledge-lint.svg" alt="knowledge-lint lint broken-knowledge-base lists 9 errors and 3 warnings: a secret that is not SOPS-encrypted, a status outside the allowed values, a missing source, an invalid date, an undeclared category and attachments that do not resolve." width="900">
+</p>
+
 ## Why
 
 Bash + `grep`/`cut` gets fragile fast once frontmatter has quoted strings,
