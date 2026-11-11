@@ -7,7 +7,7 @@ All notable changes to this project are documented in this file. The format foll
 
 ### Changed
 
-- **Pages:** the project site uses the current shared theme (0.12.8).
+- **Pages:** the project site uses the current shared theme (0.12.10).
 - **Website:** the start page shows a recorded `knowledge-lint lint` run that fails on a broken
   glossary entry and passes after the fix, and how a run works as a diagram. What is checked per
   category kind is a diagram in the [docs overview](https://casoon.github.io/knowledge-lint/docs/).
